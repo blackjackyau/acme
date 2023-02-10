@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Obtain SSL certificate
-      uses: certbot/certbot@v1
+      uses: certbot/certbot@2.2.0
       with:
         args: certonly --webroot -w /github/workspace/public -d internal.exptests.com
 
