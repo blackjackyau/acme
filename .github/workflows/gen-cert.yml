@@ -1,5 +1,13 @@
 name: Generate SSL Certificate
 
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   obtain-certificate:
     runs-on: ubuntu-latest
