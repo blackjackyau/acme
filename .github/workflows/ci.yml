@@ -41,7 +41,7 @@ jobs:
       run: |
        sudo mkdir -p ${{ github.workspace }}/artifact
        sudo cp -R ${{ github.workspace }}/build/ ${{ github.workspace }}/artifact
-       ls /artifact
+       ls ${{ github.workspace }}/artifact
 
     - name: Upload certificate
       uses: actions/upload-artifact@v2
