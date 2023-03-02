@@ -20,7 +20,7 @@ jobs:
       uses: addnab/docker-run-action@v3
       with:
           image: miigotu/certbot-dns-godaddy:latest
-          options: -v ${{ github.workspace }}/build:/build
+          options: -v ${{ github.workspace }}:/build
           run: |
               echo "dns_godaddy_key = ${{ secrets.DNS_GODADDY_KEY }}" >> c.ini
               echo >> c.ini
