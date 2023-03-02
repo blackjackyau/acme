@@ -40,6 +40,7 @@ jobs:
     - name: Copy out file from volume
       run: |
        sudo cp -R ${{ github.workspace }}/build/ ${{ github.workspace }}/artifact
+       ls /artifact
 
     - name: Upload certificate
       uses: actions/upload-artifact@v2
