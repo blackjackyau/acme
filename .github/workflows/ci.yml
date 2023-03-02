@@ -1,0 +1,41 @@
+name: Generate SSL Certificate
+
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  obtain-certificate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run the build process with Docker
+      uses: addnab/docker-run-action@v3
+      with:
+          image: miigotu/certbot-dns-godaddy:latest
+          options: -v ${{ github.workspace }}:/build
+          run: |
+              printf "dns_godaddy_key = ${{ secrets.DNS_GODADDY_KEY }}\ndns_godaddy_secret = ${{ secrets.DNS_GODADDY_SECRET }}" >> c.ini
+              chmod +600 c.ini
+              certbot certonly \
+                  --authenticator dns-godaddy \
+                  --dns-godaddy-propagation-seconds 120 \
+                  --dns-godaddy-credentials c.ini \
+                  --keep-until-expiring --non-interactive --expand \
+                  --server https://acme-v02.api.letsencrypt.org/directory \
+                  --agree-tos --email ${{ secrets.EMAIL }} \
+                  -d internal.exptests.com
+                cp /etc/letsencrypt/live/ /build
+
+    - name: Upload certificate
+      uses: actions/upload-artifact@v2
+      with:
+        name: certificate
+        path: /build
