@@ -22,7 +22,7 @@ jobs:
           image: miigotu/certbot-dns-godaddy:latest
           options: -v ${{ github.workspace }}:/build
           run: |
-              printf "dns_godaddy_key = ${{ secrets.DNS_GODADDY_KEY }}\ndns_godaddy_secret = ${{ secrets.DNS_GODADDY_SECRET }}\n" >> c.ini
+              echo -e "dns_godaddy_key = ${{ secrets.DNS_GODADDY_KEY }}\ndns_godaddy_secret = ${{ secrets.DNS_GODADDY_SECRET }}\n" >> c.ini
               chmod 600 c.ini
               cat c.ini
               certbot certonly \
