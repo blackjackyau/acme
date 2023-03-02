@@ -39,6 +39,7 @@ jobs:
               ls /build
     - name: Copy out file from volume
       run: |
+       sudo mkdir ${{ github.workspace }}/artifact
        sudo cp -R ${{ github.workspace }}/build/ ${{ github.workspace }}/artifact
        ls /artifact
 
