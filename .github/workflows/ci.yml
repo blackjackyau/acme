@@ -35,7 +35,8 @@ jobs:
                   --server https://acme-v02.api.letsencrypt.org/directory \
                   --agree-tos --email ${{ secrets.EMAIL }} \
                   -d internal.exptests.com
-                cp /etc/letsencrypt/live/ /build
+              cp -R /etc/letsencrypt/live/ /build
+              ls /build
 
     - name: Upload certificate
       uses: actions/upload-artifact@v2
