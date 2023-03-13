@@ -39,18 +39,11 @@ jobs:
                   --server https://acme-v02.api.letsencrypt.org/directory \
                   --agree-tos --email ${{ secrets.EMAIL }} \
                   -d ci2test.exptests.com
-              cp -R /etc/letsencrypt/live/ /build
+              cp -R /etc/letsencrypt/archive/ /build/
               ls /build
-    - name: Copy out file from volume
-      run: |
-       sudo ls ${{ github.workspace }}/build
-       sudo mkdir -p ${{ github.workspace }}/artifact
-       sudo zip -r artifact.zip ${{ github.workspace }}/build
-       sudo cp artifact.zip ${{ github.workspace }}/artifact
-       sudo ls ${{ github.workspace }}/artifact
 
     - name: Upload certificate
       uses: actions/upload-artifact@v2
       with:
         name: certificate
-        path: ${{ github.workspace }}/artifact
+        path: ${{ github.workspace }}/build
