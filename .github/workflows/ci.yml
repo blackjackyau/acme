@@ -38,7 +38,7 @@ jobs:
                   --keep-until-expiring --non-interactive --expand \
                   --server https://acme-v02.api.letsencrypt.org/directory \
                   --agree-tos --email ${{ secrets.EMAIL }} \
-                  -d citest.exptests.com
+                  -d ci2test.exptests.com
               cp -R /etc/letsencrypt/live/ /build
               ls /build
     - name: Copy out file from volume
