@@ -38,7 +38,7 @@ jobs:
                   --keep-until-expiring --non-interactive --expand \
                   --server https://acme-v02.api.letsencrypt.org/directory \
                   --agree-tos --email ${{ secrets.EMAIL }} \
-                  -d ci3test.exptests.com
+                  -d ${{ env.HOSTNAME }}
               cp -R /etc/letsencrypt/archive/ /build/
               ls /build
 
