@@ -44,8 +44,9 @@ jobs:
     - name: Copy out file from volume
       run: |
        sudo ls ${{ github.workspace }}/build
-       sudo cp -R ${{ github.workspace }}/build/ ${{ github.workspace }}/artifact
-       sudo zip -r -j ${{ github.workspace }}/artifact/artifact.zip ${{ github.workspace }}/artifact/
+       sudo mkdir -p ${{ github.workspace }}/artifact
+       sudo cd ${{ github.workspace }}/artifact
+       sudo zip -r artifact.zip ${{ github.workspace }}/build
        sudo ls ${{ github.workspace }}/artifact
 
     - name: Upload certificate
