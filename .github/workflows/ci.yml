@@ -16,11 +16,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Create build folder
+      run: |
+        sudo mkdir -p ${{ github.workspace }}/build
+
     - name: Run the build process with Docker
       uses: addnab/docker-run-action@v3
       with:
           image: miigotu/certbot-dns-godaddy:latest
-          options: -v ${{ github.workspace }}:/build
+          options: -v ${{ github.workspace }}/build:/build
           run: |
               echo "dns_godaddy_key = ${{ secrets.DNS_GODADDY_KEY }}" >> c.ini
               echo >> c.ini
@@ -34,7 +38,7 @@ jobs:
                   --keep-until-expiring --non-interactive --expand \
                   --server https://acme-v02.api.letsencrypt.org/directory \
                   --agree-tos --email ${{ secrets.EMAIL }} \
-                  -d internal.exptests.com
+                  -d citest.exptests.com
               cp -R /etc/letsencrypt/live/ /build
               ls /build
     - name: Copy out file from volume
