@@ -5,7 +5,7 @@ on:
     inputs:
       hostname:
         description: must be with exptests.com subdomain  E.g. citest.exptests.com
-        default: v1.0.0
+        default: citest.exptests.com
         required: true
 
 jobs:
