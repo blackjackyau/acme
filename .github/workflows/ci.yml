@@ -1,6 +1,12 @@
 name: Generate SSL Certificate
 
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      hostname:
+        description: must be with exptests.com subdomain  E.g. citest.exptests.com
+        default: v1.0.0
+        required: true
 
 jobs:
   obtain-certificate:
@@ -32,7 +38,7 @@ jobs:
                   --keep-until-expiring --non-interactive --expand \
                   --server https://acme-v02.api.letsencrypt.org/directory \
                   --agree-tos --email ${{ secrets.EMAIL }} \
-                  -d ${{ vars.HOSTNAME }}
+                  -d ${{ github.event.inputs.hostname }}
               cp -R /etc/letsencrypt/archive/ /build/
               ls /build
 
